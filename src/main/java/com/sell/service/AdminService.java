@@ -1,16 +1,27 @@
 package com.sell.service;
 
-import com.sell.exception.ResourceNotFoundException;
-import com.sell.model.*;
-import com.sell.repository.*;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sell.exception.ResourceNotFoundException;
+import com.sell.model.Category;
+import com.sell.model.Delivery;
+import com.sell.model.Item;
+import com.sell.model.Role;
+import com.sell.model.Shop;
+import com.sell.model.User;
+import com.sell.repository.CategoryRepository;
+import com.sell.repository.DeliveryRepository;
+import com.sell.repository.ItemRepository;
+import com.sell.repository.RoleRepository;
+import com.sell.repository.ShopRepository;
+import com.sell.repository.UserRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 
 @Service
 public class AdminService {
@@ -42,7 +53,6 @@ public class AdminService {
     @Transactional
     public void updateItem1(long id, Item item) {
         Item existingItem = itemRepo.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
-//        Item existingItem = itemRepo.findById(id);
         existingItem.setItemId(id);
         Category category = categoryRepo.findById(item.getCategory().getCategoryId())
                 .orElseThrow(() -> new RuntimeException("Category not found"));
@@ -133,7 +143,6 @@ public class AdminService {
         return roleRepo.findById(id);
     }
 
-
     public List<Role>getAllRole(){
         return roleRepo.findAll();
     }
@@ -151,7 +160,6 @@ public class AdminService {
         shopRepo.deleteById(shopId);
     }
 
-
     public User getShopUser(long shopId) {
         return userRepo.findById(shopId).get();
     }
@@ -162,13 +170,11 @@ public class AdminService {
         existingDelivery.setApproval(true);
         existingDelivery.setStatus("Free");
         Role deliveryRole = roleRepo.findByRoleName("Delivery");
-//        existingDelivery.getDeliveryPerson().setRole(deliveryRole);
         existingDelivery.getDeliveryPerson().setRole(deliveryRole);
         deliveryRepo.save(existingDelivery);
     }
 
     public Category getCategoryById(long categoryId) {
-//        Optional<Category> category = categoryRepo.findById(categoryId);
         return  categoryRepo.findByCategoryId(categoryId).orElse(null);
     }
 }

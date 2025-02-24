@@ -1,9 +1,15 @@
 package com.sell.model;
 
-import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Delivery {
@@ -29,22 +35,9 @@ public class Delivery {
     @JoinColumn(name = "userId")
     private User deliveryPerson;
 
-//    teachel logic with shop
-//    @OneToMany
-//    private List<Shop> shops;
-
-
-//    cant create like this because of error at creating delivery
-//    @OneToMany(mappedBy = "delivery")
-//    private List<User> user;
-
-
     @ManyToOne
     @JoinColumn(name = "shopId")
     private Shop shop;
-
-
-
 
     public Delivery() {
         super();

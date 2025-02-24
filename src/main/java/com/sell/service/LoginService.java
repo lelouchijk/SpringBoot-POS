@@ -1,15 +1,17 @@
 package com.sell.service;
 
-import com.sell.model.Role;
-import com.sell.model.User;
-import com.sell.repository.RoleRepository;
-import com.sell.repository.UserRepository;
-import jakarta.annotation.PostConstruct;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.sell.model.Role;
+import com.sell.model.User;
+import com.sell.repository.RoleRepository;
+import com.sell.repository.UserRepository;
+
+import jakarta.annotation.PostConstruct;
 
 @Service
 public class LoginService {
@@ -44,28 +46,6 @@ public class LoginService {
         return false;
     }
 
-
-//    redriecting page currently block comment
-//    public String checkLogin(String email,String pw){
-//        User user = userRepo.findByEmail(email);
-//        if(user != null){
-//            if(passEncode.matches(pw,user.getPassword()))
-//                pw = user.getPassword();
-//            user = userRepo.findByEmailAndPassword(email,pw);
-//            if(user==null)
-//                return "login";
-//            else if (user.getRole().equals("Admin")) {
-//                return "AdminPage";
-//            } else if (user.getRole().equals("ShopAdmin")) {
-//                return "ShopAdminPage";
-//            } else if (user.getRole().equals("Delievery")) {
-//                return "DelieveryPage";
-//            } else
-//                return "userPage";
-//        }
-//
-//        return "home";
-//    }
 
     public User checkLogIn(String email,String pw){
         User user = userRepo.findByEmail(email);
